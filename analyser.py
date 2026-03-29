@@ -2,6 +2,14 @@ import requests
 from textblob import TextBlob
 import matplotlib.pyplot as plt
 
+def display_posts(posts):
+    for post in posts:
+        print(f"\nTitle: {post['title']}")
+        print(f"Score: {post['score']}")
+        print(f"Comments: {post['num_comments']}")
+        print(f"Sentiment: {post['sentiment']} (Polarity: {post['polarity']:.2f})")
+        print("-" * 40)
+
 def visualise(posts):
     #pie chart to show the distribution of sentiments
     sentiments = [post['sentiment'] for post in posts]
@@ -72,6 +80,8 @@ def main():
             global posts
             posts=fetch_posts(headers)
             posts=analyse_sentiment(posts)
+            display_posts(posts)
+
         elif choice == '2':
             if not posts:
                 print("No posts to visualise. Please fetch and analyse posts first.")   
